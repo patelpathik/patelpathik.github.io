@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>क्षीरधेनु | Ksheerdhenu | We'll be there soon!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -18,6 +19,25 @@
             width: 100px;
         }
     </style>
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirectParam = urlParams.get("redirect");
+            let msg = "";
+            if (redirectParam != null) {
+                if (redirectParam == "android") {
+                    msg = "We are working on Android Application, try again later!";
+                }
+                else if (redirectParam == "iOS") {
+                    msg = "We are working on iOS Application, try again later!";
+                }
+                else if (redirectParam == "website") {
+                    msg = "We are working on Website, try again later!";
+                }
+            }
+            $("#redirectMsg").html(msg);
+        });
+    </script>
 </head>
 
 <body class="min-vh-100 d-flex flex-column">
@@ -47,6 +67,7 @@
             </nav> -->
         </div>
     </main>
+    <p style="width: 100%; align-self: center;" class="page-description" id="redirectMsg"></p>
 </body>
 
 </html>
