@@ -20,18 +20,39 @@
         }
     </style>
     <script>
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // Windows Phone must come first because its UA also contains "Android"
+            if (/windows phone/i.test(userAgent)) {
+                return "Windows Phone";
+            }
+
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            }
+
+            // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            }
+
+            return "unknown";
+        }
         $(document).ready(function () {
+            console.log(getMobileOperatingSystem());
             const urlParams = new URLSearchParams(window.location.search);
-            const redirectParam = urlParams.get("redirect");
+            const redirectToNativeApp = urlParams.get("redirectToNativeApp");
             let msg = "";
-            if (redirectParam != null) {
-                if (redirectParam == "android") {
+            if (redirectToNativeApp == "true") {
+                const platformInfo = getMobileOperatingSystem();
+                if (platformInfo == "Android") {
                     msg = "We are working on Android Application, try again later!";
                 }
-                else if (redirectParam == "iOS") {
+                else if (platformInfo == "iOS") {
                     msg = "We are working on iOS Application, try again later!";
                 }
-                else if (redirectParam == "website") {
+                else if (platformInfo == "website") {
                     msg = "We are working on Website, try again later!";
                 }
             }
@@ -67,7 +88,7 @@
             </nav> -->
         </div>
     </main>
-    <p style="width: 100%; align-self: center;" class="page-description" id="redirectMsg"></p>
+    <p style="align-self: center;" class="page-description" id="redirectMsg"></p>
 </body>
 
 </html>
