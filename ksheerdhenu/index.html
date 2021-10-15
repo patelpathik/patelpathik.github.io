@@ -43,6 +43,7 @@
             console.log(getMobileOperatingSystem());
             const urlParams = new URLSearchParams(window.location.search);
             const redirectToNativeApp = urlParams.get("redirectToNativeApp");
+            const redirect = urlParams.get("redirect");
             let msg = "";
             if (redirectToNativeApp == "true") {
                 const platformInfo = getMobileOperatingSystem();
@@ -55,6 +56,9 @@
                 else if (platformInfo == "website") {
                     msg = "We are working on Website, try again later!";
                 }
+            }
+            if (redirect == "android") {
+                window.location.href = "https://play.google.com/store/apps/details?id=com.ksheerdhenu.ksheerdhenu";
             }
             $("#redirectMsg").html(msg);
         });
